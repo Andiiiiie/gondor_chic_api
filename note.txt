@@ -1,0 +1,1 @@
+- estDuJour : A definir dans la logique metier

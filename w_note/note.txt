@@ -1,0 +1,23 @@
+-> npm install ( avant tout )
+
+1. Configuration de la base de donnees .env
++-----------------------------------------+
+|   DB_HOST=
+|   DB_PORT=
+|   DB_USER=
+|   DB_PASSWORD=
+|   DB_NAME=
+|   PORT=5000
++-----------------------------------------+
+
+2. Initialisation des schema dans la base de donnees
+----------------------------------------------------
+    Executer le script dans ../w_sql_create_schema.sql dans votre Postgres
+
+3. Initialisation des donnees de test pour la presentation SPRINT 1
+-------------------------------------------------------------------
+    Executer le script dans ../default_data.sql dans votre Postgres
+
+4. Lancer le projet
+--------------------
+    -> npm run dev
