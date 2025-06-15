@@ -9,21 +9,25 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Importation de la configuration PostgreSQL depuis le dossier config
+const sequelize = require('./config/postgres');
+
+
 // Connexion PostgreSQL avec Sequelize
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: 'postgres',
-    logging: false, // désactive les logs SQL
-    dialectOptions: {
-      ssl: false, // ou true si production avec SSL
-    },
-  }
-);
+// const sequelize = new Sequelize(
+//   process.env.DB_NAME,
+//   process.env.DB_USER,
+//   process.env.DB_PASSWORD,
+//   {
+//     host: process.env.DB_HOST,
+//     port: process.env.DB_PORT,
+//     dialect: 'postgres',
+//     logging: false, // désactive les logs SQL
+//     dialectOptions: {
+//       ssl: false, // ou true si production avec SSL
+//     },
+//   }
+// );
 
 // Test de connexion
 sequelize.authenticate()

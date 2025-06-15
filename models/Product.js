@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        //voir si c'est un produit du jour
+        produit_du_jour: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
     }, {
         tableName: 'product',
         timestamps: false,
