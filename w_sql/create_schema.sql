@@ -1,13 +1,15 @@
-CREATE  TABLE product (
-	id                   serial  NOT NULL  ,
-	reference            varchar  NOT NULL  ,
-	product_name         varchar  NOT NULL  ,
-	current_price        double precision  NOT NULL  ,
-	unit                 varchar  NOT NULL  ,
-	description          varchar  NOT NULL  ,
-	image_url            varchar  NOT NULL  ,
-	CONSTRAINT pk_product PRIMARY KEY ( id )
- );
+CREATE TABLE product (
+	id                   serial  NOT NULL,
+	reference            varchar  NOT NULL,
+	product_name         varchar  NOT NULL,
+	current_price        double precision  NOT NULL,
+	unit                 varchar  NOT NULL,
+	description          varchar  NOT NULL,
+	image_url            varchar  NOT NULL,
+	is_daily_product     boolean DEFAULT FALSE NOT NULL,
+	CONSTRAINT pk_product PRIMARY KEY (id)
+);
+
 
 CREATE  TABLE product_stock (
 	id                   serial  NOT NULL  ,
@@ -30,8 +32,8 @@ CREATE  TABLE stock_inventory (
 CREATE  TABLE "user" (
 	id                   serial  NOT NULL  ,
 	phone_number         varchar  NOT NULL  ,
-	name                 varchar  NOT NULL  ,
-	username             varchar    ,
+	first_name varchar NOT NULL,
+	last_name  varchar NOT NULL,
 	pseudo               varchar  NOT NULL  ,
 	hash_password        varchar  NOT NULL  ,
 	CONSTRAINT pk_client PRIMARY KEY ( id )
