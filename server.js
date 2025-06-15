@@ -43,6 +43,8 @@ sequelize.authenticate()
 const Product = require('./models/Product')(sequelize, DataTypes);
 const StockInventory = require('./models/StockInventory')(sequelize, DataTypes);
 const ProductStock = require('./models/ProductStock')(sequelize, DataTypes);
+// Importation du modèle User
+const User = require('./models/User')(sequelize, DataTypes);
 
 app.use((req, res, next) => {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -50,7 +52,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/products', require('./routes/productRoutes')(Product, StockInventory, ProductStock));
-
+//user
+app.use('/api/users', require('./routes/userRoutes')(User, Product, StockInventory, ProductStock));
 
 // Route de test
 app.get('/api/health', (req, res) => {
