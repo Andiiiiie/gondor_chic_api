@@ -12,7 +12,7 @@ module.exports = (Product, StockInventory, ProductStock) => {
         try {
             // 1. Trouver le produit où produit_du_jour = true
             const product = await Product.findOne({
-                where: { produit_du_jour: true }
+                where: { is_daily_product: true }
             });
 
             if (!product) {

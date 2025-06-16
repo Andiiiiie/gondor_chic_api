@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         //voir si c'est un produit du jour
-        produit_du_jour: {
+        is_daily_product: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }

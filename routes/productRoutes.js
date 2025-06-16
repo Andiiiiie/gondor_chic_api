@@ -45,7 +45,7 @@ module.exports = (Product, StockInventory, ProductStock) => {
                 product_name: product.product_name,
                 description: product.description,
                 current_price: product.current_price,
-                stock: stock,
+                stock: 100,
                 image_url: product.image_url
             });
             }
