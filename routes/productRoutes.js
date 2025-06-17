@@ -3,6 +3,10 @@ const { Op } = require('sequelize');
 const router = express.Router();
 
 module.exports = (Product, StockInventory, ProductStock) => {
+
+     //Import service avec les modèles
+    const productService = require('../services/productService')(Product, StockInventory, ProductStock);
+
     router.get('/', async (req, res) => {
         try {
             // Récupérer tous les produits
@@ -41,7 +45,7 @@ module.exports = (Product, StockInventory, ProductStock) => {
                 product_name: product.product_name,
                 description: product.description,
                 current_price: product.current_price,
-                stock: stock,
+                stock: 100,
                 image_url: product.image_url
             });
             }
@@ -51,6 +55,34 @@ module.exports = (Product, StockInventory, ProductStock) => {
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Erreur serveur' });
+        }
+    });
+
+    // NOUVEAU: Endpoint pour le produit du jour
+    router.get('/produit-du-jour', async (req, res) => {
+        try {
+            const product = await productService.getActualProduct();
+            
+            if (!product) {
+                return res.status(404).json({ 
+                    success: false,
+                    message: 'Aucun produit du jour trouvé.' 
+                });
+            }
+
+            res.setHeader('Content-Type', 'application/json; charset=utf-8');
+            res.json({
+                success: true,
+                data: product
+            });
+
+        } catch (error) {
+            console.error('Erreur endpoint produit-du-jour:', error);
+            res.status(500).json({ 
+                success: false,
+                message: 'Erreur serveur',
+                error: error.message 
+            });
         }
     });
 

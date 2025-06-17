@@ -9,21 +9,25 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Importation de la configuration PostgreSQL depuis le dossier config
+const sequelize = require('./config/postgres');
+
+
 // Connexion PostgreSQL avec Sequelize
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: 'postgres',
-    logging: false, // désactive les logs SQL
-    dialectOptions: {
-      ssl: false, // ou true si production avec SSL
-    },
-  }
-);
+// const sequelize = new Sequelize(
+//   process.env.DB_NAME,
+//   process.env.DB_USER,
+//   process.env.DB_PASSWORD,
+//   {
+//     host: process.env.DB_HOST,
+//     port: process.env.DB_PORT,
+//     dialect: 'postgres',
+//     logging: false, // désactive les logs SQL
+//     dialectOptions: {
+//       ssl: false, // ou true si production avec SSL
+//     },
+//   }
+// );
 
 // Test de connexion
 sequelize.authenticate()
@@ -39,6 +43,8 @@ sequelize.authenticate()
 const Product = require('./models/Product')(sequelize, DataTypes);
 const StockInventory = require('./models/StockInventory')(sequelize, DataTypes);
 const ProductStock = require('./models/ProductStock')(sequelize, DataTypes);
+// Importation du modèle User
+const User = require('./models/User')(sequelize, DataTypes);
 
 app.use((req, res, next) => {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -46,7 +52,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/products', require('./routes/productRoutes')(Product, StockInventory, ProductStock));
-
+//user
+app.use('/api/users', require('./routes/userRoutes')(User, Product, StockInventory, ProductStock));
 
 // Route de test
 app.get('/api/health', (req, res) => {
